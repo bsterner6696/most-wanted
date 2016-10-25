@@ -1,5 +1,6 @@
-var dataObject = { 
-	"272822514" : { 
+
+var dataObject = [{ 
+	"id" : "272822514",
 	  "firstName": "Billy",
 	  "lastName": "Bob",
 	  "gender": "male",
@@ -11,7 +12,7 @@ var dataObject = {
 	  "parents": [],
 	  "currentSpouse": 401222887 
 	},
-	"401222887" : { 
+	{"id" : "401222887",
 	  "firstName": "Uma",
 	  "lastName": "Bob",
 	  "gender": "female",
@@ -23,7 +24,7 @@ var dataObject = {
 	  "parents": [],
 	  "currentSpouse": 272822514 
 	},
-	"409574486" : { 
+	{"id" : "409574486", 
 	  "firstName": "Michael",
 	  "lastName": "Walkens",
 	  "gender": "male",
@@ -35,7 +36,7 @@ var dataObject = {
 	  "parents": [],
 	  "currentSpouse": 260451248 
 	},
-	"260451248" : {
+	{"id" : "260451248",
 	  "firstName": "Jon",
 	  "lastName": "Walkens",
 	  "gender": "male",
@@ -47,7 +48,7 @@ var dataObject = {
 	  "parents": [],
 	  "currentSpouse": 409574486 
 	},
-	"629807187" : {
+	{"id" : "629807187",
 	  "firstName": "Jack",
 	  "lastName": "Pafoy",
 	  "gender": "male",
@@ -59,7 +60,7 @@ var dataObject = {
 	  "parents": [],
 	  "currentSpouse": 464142841 
 	},
-	"464142841" : {
+	{"id" : "464142841",
 	  "firstName": "Jen",
 	  "lastName": "Pafoy",
 	  "gender": "female",
@@ -71,7 +72,7 @@ var dataObject = {
 	  "parents": [],
 	  "currentSpouse": 629807187 
 	},
-	"982411429" : {
+	{"id" : "982411429",
 	  "firstName": "Mister",
 	  "lastName": "Potatoo",
 	  "gender": "male",
@@ -83,7 +84,7 @@ var dataObject = {
 	  "parents": [],
 	  "currentSpouse": 595767575 
 	},
-	"595767575" : {
+	{"id" : "595767575",
 	  "firstName": "Missuz",
 	  "lastName": "Potatoo",
 	  "gender": "female",
@@ -95,7 +96,7 @@ var dataObject = {
 	  "parents": [],
 	  "currentSpouse": 982411429 
 	},
-	"693243224" : {
+	{"id" : "693243224",
 	  "firstName": "Joy",
 	  "lastName": "Madden",
 	  "gender": "female",
@@ -105,9 +106,9 @@ var dataObject = {
 	  "eyeColor": "hazel",
 	  "occupation": "doctor",
 	  "parents": [],
-	  "currentSpouse": 693243224 
+	  "currentSpouse": 888201200
 	},
-	"888201200" : {
+	{"id" : "888201200",
 	  "firstName": "Mader",
 	  "lastName": "Madden",
 	  "gender": "male",
@@ -117,21 +118,21 @@ var dataObject = {
 	  "eyeColor": "black",
 	  "occupation": "landscaper",
 	  "parents": [],
-	  "currentSpouse": 888201200 
+	  "currentSpouse": 693243224 
 	},
-	"878013758" : {
+	{"id" : "878013758",
 	  "firstName": "Jill",
 	  "lastName": "Pafoy",
-	  "gender": "Bob",
+	  "gender": "female",
 	  "dob": "2/8/1972",
 	  "height": 74,
 	  "weight": 118,
 	  "eyeColor": "brown",
 	  "occupation": "programmer",
-	  "parents": [401222887,401222887],
+	  "parents": [401222887,272822514],
 	  "currentSpouse": 294874671 
 	},
-	"951747547" : {
+	{"id" : "951747547",
 	  "firstName": "Ralph",
 	  "lastName": "Bob",
 	  "gender": "male",
@@ -140,10 +141,10 @@ var dataObject = {
 	  "weight": 179,
 	  "eyeColor": "blue",
 	  "occupation": "nurse",
-	  "parents": [401222887,401222887],
+	  "parents": [401222887,272822514],
 	  "currentSpouse": 159819275 
 	},
-	"159819275" : {
+	{"id" : "159819275",
 	  "firstName": "Jasmine",
 	  "lastName": "Bob",
 	  "gender": "female",
@@ -155,7 +156,7 @@ var dataObject = {
 	  "parents": [409574486,260451248],
 	  "currentSpouse": 951747547 
 	},
-	"348457184" : {
+	{"id" : "348457184",
 	  "firstName": "Annie",
 	  "lastName": "Pafoy",
 	  "gender": "female",
@@ -167,7 +168,7 @@ var dataObject = {
 	  "parents": [629807187,464142841],
 	  "currentSpouse": null 
 	},
-	"294874671" : {
+	{"id" : "294874671",
 	  "firstName": "Dave",
 	  "lastName": "Pafoy",
 	  "gender": "male",
@@ -179,7 +180,7 @@ var dataObject = {
 	  "parents": [629807187,464142841],
 	  "currentSpouse": 878013758 
 	},
-	"931247228" : {
+	{"id" : "931247228",
 	  "firstName": "Amii",
 	  "lastName": "Pafoy",
 	  "gender": "female",
@@ -191,7 +192,7 @@ var dataObject = {
 	  "parents": [629807187,464142841],
 	  "currentSpouse": null 
 	},
-	"822843554" : {
+	{"id" : "822843554",
 	  "firstName": "Regina",
 	  "lastName": "Madden",
 	  "gender": "female",
@@ -203,7 +204,7 @@ var dataObject = {
 	  "parents": [693243224, 888201200],
 	  "currentSpouse": null 
 	},
-	"819168108" : {
+	{"id" : "819168108",
 	  "firstName": "Hana",
 	  "lastName": "Madden",
 	  "gender": "female",
@@ -215,7 +216,7 @@ var dataObject = {
 	  "parents": [693243224, 888201200],
 	  "currentSpouse": null 
 	},
-	"969837479" : {
+	{"id" : "969837479",
 	  "firstName": "Eloise",
 	  "lastName": "Madden",
 	  "gender": "female",
@@ -227,7 +228,7 @@ var dataObject = {
 	  "parents": [693243224, 888201200],
 	  "currentSpouse": null 
 	},
-	"313207561" : {
+	{"id" : "313207561",
 	  "firstName": "Mattias",
 	  "lastName": "Madden",
 	  "gender": "male",
@@ -239,7 +240,7 @@ var dataObject = {
 	  "parents": [693243224, 888201200],
 	  "currentSpouse": 313997561 
 	},
-	"313997561" : {
+	{"id" : "313997561",
 	  "firstName": "Ellen",
 	  "lastName": "Madden",
 	  "gender": "female",
@@ -251,7 +252,7 @@ var dataObject = {
 	  "parents": [],
 	  "currentSpouse": 313207561 
 	},
-	"313998000" : {
+	{"id" : "313998000",
 	  "firstName": "Joey",
 	  "lastName": "Madden",
 	  "gender": "female",
@@ -262,8 +263,7 @@ var dataObject = {
 	  "occupation": "doctor",
 	  "parents": [313207561,313997561],
 	  "currentSpouse": null 
-	}
-};
+	}];
 
 /*  Remove this from your final submission
 function printAllToConsole(dataObj){
@@ -281,30 +281,116 @@ function initSearch(){
 
 	// get all the information you need to run the search
 	var yourName = prompt("Who do you want to search for?");
-
+	var yourSplitName = yourName.split(" ");
 	// then pass that info to the respective function.
-	var result = getPersonInfo("J", "T")
+	var result = getPersonInfo(yourSplitName[0], yourSplitName[1] )
 
 	// once the search is done, pass the results to the responder function
 	responder(result);
+	//getDescendants(result);
+	result.forEach(function(item){
+		var members = getFamily(item);
+		responder(getNames(members));
+	});	
+	
+
 }
 
 function responder(results){
-	// results may be a list of strings, an object, or a single string. 
-	alert(results);
+	// results may be a list of strings, an object, or a single string.
+	var result = JSON.stringify(results);
+	alert(result);
 }
 
+function firstNameMatches(value, firstname){
+	return value.firstName == firstname;
+}
+function lastNameMatches(value, lastname){
+	
+	return value.lastName == lastname;
+}
 function getPersonInfo(firstname, lastname){
-	var result = "This will be the information for whoever you searched for";
+	var matches = dataObject.filter(function (value){
+		return value.firstName == firstname &&
+		value.lastName == lastname
+	});
+	var result = matches;
 	// look up person's information
 	return result;
 }
+function isChildOf(value){
+	
+	
+}
+function getDescendants(person){
+	var children = dataObject.filter(function (x){
+	return x.parents[0] == person.id ||
+		x.parents[1] == person.id
+	});
+	for (var x = 0; x < children.length; x++){
+		responder(children[x].firstName + " " + children[x].lastName);
+		getDescendants(children[x]);
+	};	
+}
 
-function getFamily(){
+function getFamily(person){
 	// return list of names of immediate family members
+	var familyMembers = [];
+	dataObject.forEach(function(item){
+		if ((item.parents[0] == person.id ||
+		item.parents[1] == person.id ||
+		person.parents[0] == item.id ||
+		person.parents[1] == item.id ||
+		person.currentSpouse == item.id) ||
+		(person.parents.length != 0 && 
+		person.parents[0] == item.parents[0]) &&
+		person.id != item.id)
+		{
+			familyMembers.push(item);		
+		};
+		
+		
+	});
+	return familyMembers;
+}
+
+
+function getEldest(people)
+{
+	var lowest = Number.POSITIVE_INFINITY;
+	var eldest;
+	people.forEach(function(person)
+	{
+		var birthDate = date.parse(person.dob);
+		if (birthDate < lowest){ 
+		lowest = birthDate; 
+		eldest = person;
+		};
+	});
+	return eldest;
+}
+function getNextOfKin(person)
+{
+	
+}
+
+
+
+
+
+
+
+
+
+function getNames(people){
+	var names = [];
+	people.forEach(function(person){
+		names.push(person.firstName + " " + person.lastName);		
+	});
+	return names;
 }
 
 // there will be much more here, and some of the code above will certainly change
 
 initSearch();
-window.close(); // exit window as the end of the session -- you may remove this
+//window.close(); // exit window as the end of the session -- you may remove this
