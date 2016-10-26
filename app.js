@@ -302,12 +302,12 @@ function searchAttributes(){
 	var querys = query.split(",");
 	var results = querys.map(parseAndSearch);
 	results = results.reduce(function(a,b){
-		var matchedValues array = [];
+		var matchedValues = [];
 		if (a != "noMatchedPattern" && b != "noMatchedPattern"){
-		for (var indexa = 0; indexa < a.length; index++){
-			for (var indexb = 0; indexb < b.length; index++){
-				if (a.indexa === b.indexb){
-					matchedValues.push(b.indexb);
+		for (var indexa = 0; indexa < a.length; indexa++){
+			for (var indexb = 0; indexb < b.length; indexb++){
+				if (a[indexa] === b[indexb]){
+					matchedValues.push(b[indexb]);
 				};
 			};
 		};
@@ -320,6 +320,7 @@ function searchAttributes(){
 			return a;
 		}
 	});
+	responder(getNames(results));
 }
 
 function parseAndSearch(value){
@@ -328,33 +329,42 @@ function parseAndSearch(value){
 	var ageRangePattern = /\d*\d*\d*\d-\d*\d*\d*\d/;
 	var weightPattern = /\d*\d*\d*\dlbs/i;
 	var occupationOrEyeColorPattern = /\w/i;
-	if (heightPattern.test(value){
+	if (heightPattern.test(value)){
 		var unsplitHeight = value.replace(/"/, '');
 		var splitHeight = unsplitHeight.split("'");
 		var height = splitHeight[0] * 12 + splitHeight[1];
 		var matches = dataObject.filter(function (person){
-			return person.height === height;
-		};
+			return person.height == height;
+		});
 		return matches;
 	}
-	else if (agePattern.test(value){
+	else if (ageRangePattern.test(value)){
 		
+		var splitAges = value.split("-");
+		var matches = dataObject.filter(function (person){
+			return getAge(person.dob) >= parseInt(splitAges[0]) ||
+			getAge(person.dob) <= parseInt(splitAges[1]);
+		});
+		return matches;
 	}
-	else if (ageRangePattern.test(value){
-		
+	else if (agePattern.test(value)){
+		var matches = dataObject.filter(function (person){
+			return getAge(person.dob) == value;
+		});
+		return matches;
 	}
-	else if (weightPattern.test(value){
+	else if (weightPattern.test(value)){
 		var weight = value.replace(/lbs/i, '');
 		var matches = dataObject.filter(function (person){
-			return person.weight === value;
-		};
+			return person.weight == weight;
+		});
 		return matches;
 	}
-	else if (occupationOrEyeColorPattern.test(value){
+	else if (occupationOrEyeColorPattern.test(value)){
 		var matches = dataObject.filter(function (person){
-			return person.occupation === value ||
-			person.eyeColor === value;
-		};
+			return person.occupation == value ||
+			person.eyeColor == value;
+		});
 		return matches;
 	} else{
 		var reprompt = prompt(value + " is an invalid format.  Reenter a new query for " + value + " or leave blank to skip.")
@@ -366,6 +376,15 @@ function parseAndSearch(value){
 	}
 	
 }
+
+function getAge(dob){
+	var birthday = Date.parse(dob);
+    var ageDifference = Date.now() - birthday;
+    var ageDate = new Date(ageDifference);
+    var age = ageDate.getUTCFullYear() - 1970;
+	return age;
+}
+
 function responder(results){
 	// results may be a list of strings, an object, or a single string.
 	var result = JSON.stringify(results, null, 2);
@@ -642,6 +661,6 @@ function getName(person){
 }
 
 // there will be much more here, and some of the code above will certainly change
-parseAndSearch();
+searchAttributes();
 //searchAttributes();
 //window.close(); // exit window as the end of the session -- you may remove this
