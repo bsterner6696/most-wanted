@@ -1,4 +1,3 @@
-var descendants = [];
 var dataObject = [{ 
 	id :   272822514,
 	  firstName: "Billy",
@@ -300,6 +299,7 @@ function searchName(){
 	});
 	} else {
 		alert("No results for given name.")
+		searchName();
 	}
 }
 function getKin(){
@@ -311,11 +311,12 @@ function getKin(){
 		if (nextOfKin != null){
 		responder("Next of kin for " + getName(person) + " is " + getName(nextOfKin));
 		} else{
-			Alert("No suitable next of kin found.");
+			alert("No suitable next of kin found.");
 		}
 	});
 	} else {
-		Alert("No results for given name.")
+		alert("No results for given name.")
+		getKin();
 	}
 }
 function searchDescendants(){
@@ -323,8 +324,7 @@ function searchDescendants(){
 	var result = splitAndSearchName(yourName);
 	if (result.length != 0){
 	result.forEach(function(person){
-		descendants = [];
-		getDescendants(person);
+		descendants = getDescendants(person);
 		if (descendants.length != 0){
 		responder("Descendants of " + getName(person) + " are: \n" + getNames(descendants));
 		} else {
@@ -334,6 +334,7 @@ function searchDescendants(){
 	});
 	} else{
 		alert("No results for given name.");
+		searchDescendants();
 	}
 
 }
@@ -351,6 +352,7 @@ function searchFamily(){
 	});
 	} else{
 		alert("No results for given name.");
+		searchFamily();
 	}
 }
 function splitAndSearchName(name){
@@ -382,7 +384,13 @@ function searchAttributes(){
 			return a;
 		}
 	});
+	if (results.length != 0){
 	responder(getNames(results));
+	}
+	else {
+		alert("No results found for given query.")
+		searchAttributes();
+	}
 }
 
 function parseAndSearch(value){
@@ -470,10 +478,14 @@ function getDescendants(person){
 	return x.parents[0] === person.id ||
 		x.parents[1] === person.id
 	});
+	var descendants = children;
 	for (var x = 0; x < children.length; x++){
-		descendants.push(children[x]);
-		getDescendants(children[x]);
-	};	
+		var grandChildren = getDescendants(children[x]);
+		grandChildren.forEach(function(grandChild){
+			descendants.push(grandChild);
+		});
+	};
+	return descendants;
 }
 
 function getFamily(person){
