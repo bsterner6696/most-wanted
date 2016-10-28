@@ -1,4 +1,4 @@
-
+var descendants = [];
 var dataObject = [{ 
 	id :   272822514,
 	  firstName: "Billy",
@@ -265,37 +265,99 @@ var dataObject = [{
 	  currentSpouse: null 
 	}];
 
-/*  Remove this from your final submission
-function printAllToConsole(dataObj){
-	for (var key in dataObj) {
-		if (dataObj.hasOwnProperty(key)) {
-			console.log(key + " -> " + JSON.stringify(dataObj[key]));
-		}
+function initSearch(){
+	alert("Welcome to the top secret government agency most wanted database search tool.  If you have accessed this site without proper clearance, a drone is en route to your location to deliver your immediate termination.");
+	selectMode(0);
+
+
+}
+function selectMode(){
+	var modeChoice = prompt("What would you like to search for?\n Type 'lookup' to inquire info by name \n Type 'search' to query database by various attributes \n Type 'kin' to get next of kin by name \n Type 'descendants' to get a list of descendant for a given name \n Type 'family' for a list of immediate family members for a given name");
+	if (modeChoice == "lookup"){
+		searchName();
+	}
+	else if (modeChoice == "search"){
+		searchAttributes();
+	}
+	else if (modeChoice == "kin"){
+		getKin();
+	}
+	else if (modeChoice == "descendants"){
+		searchDescendants();
+	}
+	else if (modeChoice == "family"){
+		searchFamily();
+	} else {
+		selectMode();
 	}
 }
-printAllToConsole(dataObject);
-*/
+function searchName(){
+	var yourName = prompt("Who would you like to search for? \n Enter name in format 'John Doe' without the quotations.");
+	var result = splitAndSearchName(yourName);
+	if (result.length != 0){
+	result.forEach(function(person){
+		printPersonInfo(person);
+	});
+	} else {
+		alert("No results for given name.")
+	}
+}
+function getKin(){
+	var yourName = prompt("Who would you like to obtain next of kin for? \n Enter name in format 'John Doe' without the quotations.");
+	var result = splitAndSearchName(yourName);
+	if (result.length != 0){
+	result.forEach(function(person){
+		var nextOfKin = getNextOfKin(person);
+		if (nextOfKin != null){
+		responder("Next of kin for " + getName(person) + " is " + getName(nextOfKin));
+		} else{
+			Alert("No suitable next of kin found.");
+		}
+	});
+	} else {
+		Alert("No results for given name.")
+	}
+}
+function searchDescendants(){
+	var yourName = prompt("Who would you to find descendants of? \n Enter name in format 'John Doe' without the quotations.");
+	var result = splitAndSearchName(yourName);
+	if (result.length != 0){
+	result.forEach(function(person){
+		descendants = [];
+		getDescendants(person);
+		if (descendants.length != 0){
+		responder("Descendants of " + getName(person) + " are: \n" + getNames(descendants));
+		} else {
+			alert("No descendants found");
+		}
 
-function initSearch(){
-	alert("Hello World");
-
-	// get all the information you need to run the search
-	var yourName = prompt("Who do you want to search for?");
-	var yourSplitName = yourName.split(" ");
-	// then pass that info to the respective function.
-	var result = getPersonInfo(yourSplitName[0], yourSplitName[1] )
-
-	// once the search is done, pass the results to the responder function
-	responder(result);
-	//getDescendants(result);
-	//result.forEach(function(item){
-		//var members = getNextOfKin(item);
-		//responder(getName(members));
-	//});	
-	
+	});
+	} else{
+		alert("No results for given name.");
+	}
 
 }
-
+function searchFamily(){
+	var yourName = prompt("Who would you to find family of? \n Enter name in format 'John Doe' without the quotations.");
+	var result = splitAndSearchName(yourName);
+	if (result.length != 0){
+	result.forEach(function(person){
+		var family = getFamily(person);
+		if (family.length != 0){
+		responder("Family of " + getName(person) + " are: \n" + getNames(family));
+		} else {
+			alert("No family found");
+		}
+	});
+	} else{
+		alert("No results for given name.");
+	}
+}
+function splitAndSearchName(name){
+	var splitName = name.split(" ");
+	var result = getPersonInfo(splitName[0], splitName[1]);
+	return result;
+}
 function searchAttributes(){
 	var query = prompt("Enter desired search querys separated by commas.\n Choices: \n Age: in format # \n Age Range: in format #-# \n Height: in format #'#\" \n Weight: in format #lbs \n Occupation: single word \n Eye Color: single word \n Occupation and Eye Color are interchangeable");
 	query = query.replace(/\s+/g, '');
@@ -342,7 +404,7 @@ function parseAndSearch(value){
 		
 		var splitAges = value.split("-");
 		var matches = dataObject.filter(function (person){
-			return getAge(person.dob) >= parseInt(splitAges[0]) ||
+			return getAge(person.dob) >= parseInt(splitAges[0]) &&
 			getAge(person.dob) <= parseInt(splitAges[1]);
 		});
 		return matches;
@@ -385,45 +447,36 @@ function getAge(dob){
 	return age;
 }
 
-function responder(results){
-	// results may be a list of strings, an object, or a single string.
-	var result = JSON.stringify(results, null, 2);
+function printPersonInfo(person){
+	var result = JSON.stringify(person, null, 2);
 	alert(result);
 }
 
-function firstNameMatches(value, firstname){
-	return value.firstName === firstname;
+function responder(result){
+	alert(result);
 }
-function lastNameMatches(value, lastname){
-	
-	return value.lastName === lastname;
-}
+
 function getPersonInfo(firstname, lastname){
 	var matches = dataObject.filter(function (value){
 		return value.firstName === firstname &&
 		value.lastName === lastname
 	});
 	var result = matches;
-	// look up person's information
 	return result;
 }
-function isChildOf(value){
-	
-	
-}
+
 function getDescendants(person){
 	var children = dataObject.filter(function (x){
 	return x.parents[0] === person.id ||
 		x.parents[1] === person.id
 	});
 	for (var x = 0; x < children.length; x++){
-		responder(children[x].firstName + " " + children[x].lastName);
+		descendants.push(children[x]);
 		getDescendants(children[x]);
 	};	
 }
 
 function getFamily(person){
-	// return list of names of immediate family members
 	var familyMembers = [];
 	dataObject.forEach(function(item){
 		if ((item.parents[0] === person.id ||
@@ -460,7 +513,6 @@ function getEldest(people)
 }
 function getNextOfKin(person)
 {
-	//spouse
 	var spouse = dataObject.filter(function (value){
 		return value.currentSpouse === person.id;
 	});
@@ -468,16 +520,14 @@ function getNextOfKin(person)
 	{
 		return getEldest(spouse);
 	};
-	//child
-	var child = dataObject.filter(function (value){
+	var children = dataObject.filter(function (value){
 		return value.parents[0] === person.id ||
 		value.parents[1] === person.id;
 	});
-	if (child.length != 0)
+	if (children.length != 0)
 	{
-		return getEldest(child);
+		return getEldest(children);
 	};
-	//parent
 	var parent = dataObject.filter(function (value){
 		return person.parents[0] === value.id ||
 		person.parents[1] === value.id;
@@ -486,17 +536,15 @@ function getNextOfKin(person)
 	{
 		return getEldest(parent);
 	};
-	//sibling
-	var sibling = dataObject.filter(function (value){
+	var siblings = dataObject.filter(function (value){
 		return value.parents[0] === person.parents[0] &&
 		value.id != person.id && 
 		person.parents.length != 0;
 	});
-	if (sibling.length != 0)
+	if (siblings.length != 0)
 	{
-		return getEldest(sibling);
+		return getEldest(siblings);
 	};
-	//grandChild
 	var grandChildren = [];
 	var children = dataObject.filter(function (value){
 		return value.parents[0] === person.id ||
@@ -517,7 +565,6 @@ function getNextOfKin(person)
 	{
 		return getEldest(grandChildren);
 	};
-	//grandparent
 	var grandParents = [];
 	var parent = dataObject.filter(function (value){
 		return person.parents[0] === value.id ||
@@ -534,7 +581,6 @@ function getNextOfKin(person)
 	if (grandParents.length != 0){
 		return getEldest(grandParents);
 	};
-	//niece/nephew
 	var nebling = [];
 	var siblings = dataObject.filter(function (value){
 		return value.parents[0] === person.parents[0] &&
@@ -557,7 +603,6 @@ function getNextOfKin(person)
 		return getEldest(nebling);
 	}
 	
-	//Aunt/Uncle
 	var auncle = [];
 	var parent = dataObject.filter(function (value){
 		return person.parents[0] === value.id ||
@@ -576,7 +621,6 @@ function getNextOfKin(person)
 	if (auncle.length != 0){
 		return getEldest(auncle);
 	};
-	//Great GrandChild
 	var grandChildren = [];
 	var greatGrandChild = [];
 	var children = dataObject.filter(function (value){
@@ -609,7 +653,6 @@ function getNextOfKin(person)
 		return getEldest(greatGrandChild);
 	};
 	
-	//Great GrandParent
 	var greatGrandParents = [];
 	var grandParent = [];
 	var parent = dataObject.filter(function (value){
@@ -642,17 +685,10 @@ function getNextOfKin(person)
 }
 
 
-
-
-
-
-
-
-
 function getNames(people){
-	var names = [];
+	var names = "";
 	people.forEach(function(person){
-		names.push(person.firstName + " " + person.lastName);		
+		names = names + person.firstName + " " + person.lastName + "\n";		
 	});
 	return names;
 }
@@ -660,7 +696,4 @@ function getName(person){
 	return (person.firstName + " " + person.lastName);
 }
 
-// there will be much more here, and some of the code above will certainly change
-searchAttributes();
-//searchAttributes();
-//window.close(); // exit window as the end of the session -- you may remove this
+initSearch();
